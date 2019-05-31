@@ -18,3 +18,11 @@ https://cloud.google.com/
 Create a virtual endpoint to host the data table 
 Host the api on a server instance 
 Deploy the application 
+
+
+Websites:
+https://econ-datatable.appspot.com
+
+Error:
+Error: Not Found
+The requested URL / was not found on this server.
