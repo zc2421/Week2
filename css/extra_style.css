@@ -1,0 +1,15 @@
+td.details-control {
+    /*background: aquamarine;*/
+    background: url('../images/open.png') no-repeat center center;
+    cursor: pointer;
+    background-size: 20px 20px;
+}
+tr.shown td.details-control {
+    background: url('../images/close.png') no-repeat center center;
+    background-size: 20px 20px;
+}
+
+
+#header{
+    text-align: center;
+}

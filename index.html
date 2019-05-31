@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datatable</title>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/extra_style.css">
+
+</head>
+
+<body>
+
+<h1 id="header"> Econ Datatable</h1>
+<table id="example" class="cell-border display" style="width:95%">
+    <thead>
+    <tr>
+        <th>Expand</th>
+        <th>ID</th>
+        <th>Realtime Start</th>
+        <th>Realtime End</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <!--<tfoot>-->
+    <!--<tr>-->
+        <!--<th>Expand</th>-->
+        <!--<th>ID</th>-->
+        <!--<th>Realtime Start</th>-->
+        <!--<th>Realtime End</th>-->
+        <!--<th>Name</th>-->
+    <!--</tr>-->
+    <!--</tfoot>-->
+</table>
+
+</body>
+</html>
+
+
+<script>
+
+
+    /* Formatting function for row details - modify as you need */
+    function format ( d ) {
+        // `d` is the original data object for the row
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:30px;">'+
+            '<tr>'+
+            '<td>Press Release:</td>'+
+            '<td>'+d.press_release+'</td>'+
+            '</tr>'+
+            '<tr>'+
+            '<td>Link:</td>'+
+            '<td>'+ '<a href="'+ d.link +'">'+ d.link +'</a>' + '</td>'+
+            '</tr>'+
+            '<tr>'+
+            '<td>Notes:</td>'+
+            '<td>'+d.notes+'</td>'+
+            '</tr>'+
+            '</table>';
+    }
+
+    $(document).ready(function() {
+        var table = $('#example').DataTable( {
+            "ajax": "data/data.json",
+            "columns": [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": ''
+                },
+                { "data": "id" },
+                { "data": "realtime_start" },
+                { "data": "realtime_end" },
+                { "data": "name" }
+            ],
+            "order": [[1, 'asc']]
+        } );
+
+        // Add event listener for opening and closing details
+        $('#example tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row( tr );
+
+            if ( row.child.isShown() ) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child( format(row.data()) ).show();
+                tr.addClass('shown');
+            }
+        } );
+    } );
+
+
+</script>
